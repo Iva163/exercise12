@@ -5,35 +5,37 @@ import ru.netology.domain.FilmTitle;
 public class PosterManager {
 
     private int resultLength = 10;
-    private FilmTitle[] films = new FilmTitle[0];
+    private PosterRepository repo;
 
-    public PosterManager() {
+    public PosterManager(PosterRepository repo) {
+        this.repo = repo;
     }
 
-    public PosterManager(int resultLength) {
+    public PosterManager(int resultLength, PosterRepository repo) {
         this.resultLength = resultLength;
+        this.repo = repo;
     }
+
 
     public void add(FilmTitle film) {
-        FilmTitle[] tmp = new FilmTitle[films.length + 1];
-        for (int i = 0; i < films.length; i++) {
-            tmp[i] = films[i];
-        }
-        tmp[tmp.length - 1] = film;
-        films = tmp;
+        repo.save(film);
     }
 
     public FilmTitle[] findAll() {
-        return films;
+        return repo.findAll();
+
     }
 
     public FilmTitle[] findLast() {
-        if (films.length < resultLength) {
-            resultLength = films.length;
+
+        FilmTitle[] all = repo.findAll();
+
+        if (all.length < resultLength) {
+            resultLength = all.length;
         }
         FilmTitle[] result = new FilmTitle[resultLength];
         for (int i = 0; i < result.length; i++) {
-            result[i] = films[films.length - 1 - i];
+            result[i] = all[all.length - 1 - i];
         }
         return result;
     }

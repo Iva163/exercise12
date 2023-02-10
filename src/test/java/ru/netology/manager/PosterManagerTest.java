@@ -1,9 +1,12 @@
 package ru.netology.manager;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.FilmTitle;
 
 public class PosterManagerTest {
+
+    PosterRepository repo = new PosterRepository();
 
     FilmTitle film1 = new FilmTitle(1, "Бладшот", "боевик");
     FilmTitle film2 = new FilmTitle(2, "Вперед", "мультфильм");
@@ -18,10 +21,9 @@ public class PosterManagerTest {
     FilmTitle film11 = new FilmTitle(11, "Фильм11", "мультфильм");
 
 
-
     @Test
     public void shouldFindAll() {
-        PosterManager film = new PosterManager();
+        PosterManager film = new PosterManager(repo);
         film.add(film1);
         film.add(film2);
         film.add(film3);
@@ -35,7 +37,7 @@ public class PosterManagerTest {
 
     @Test
     public void shouldFindLast() {
-        PosterManager film = new PosterManager();
+        PosterManager film = new PosterManager(repo);
         film.add(film1);
         film.add(film2);
         film.add(film3);
@@ -49,7 +51,7 @@ public class PosterManagerTest {
 
     @Test
     public void shouldFindLastAddOverResult() {
-        PosterManager film = new PosterManager();
+        PosterManager film = new PosterManager(repo);
         film.add(film1);
         film.add(film2);
         film.add(film3);
@@ -63,15 +65,15 @@ public class PosterManagerTest {
         film.add(film11);
 
 
-
         FilmTitle[] expected = {film11, film10, film9, film8, film7, film6, film5, film4, film3, film2};
         FilmTitle[] actual = film.findLast();
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldFindLastWithResultLength() {
-        PosterManager film = new PosterManager(2);
+        PosterManager film = new PosterManager(2, repo);
         film.add(film1);
         film.add(film2);
         film.add(film3);
@@ -85,7 +87,7 @@ public class PosterManagerTest {
 
     @Test
     public void shouldFindLastWithResultLengthEqItems() {
-        PosterManager film = new PosterManager(3);
+        PosterManager film = new PosterManager(3, repo);
         film.add(film1);
         film.add(film2);
         film.add(film3);
@@ -96,9 +98,10 @@ public class PosterManagerTest {
 
         Assertions.assertArrayEquals(expected, actual);
     }
+
     @Test
     public void shouldFindLastWithResultLengthOverItems() {
-        PosterManager film = new PosterManager(5);
+        PosterManager film = new PosterManager(5, repo);
         film.add(film1);
         film.add(film2);
         film.add(film3);
