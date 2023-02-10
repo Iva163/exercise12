@@ -1,4 +1,5 @@
 package ru.netology.domain;
+
 public class FilmTitle {
     private int id;
     private String filmName;
@@ -10,4 +11,7 @@ public class FilmTitle {
         this.filmGenre = filmGenre;
     }
 
+    public int getId() {
+        return id;
+    }
 }
