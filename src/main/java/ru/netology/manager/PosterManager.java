@@ -4,15 +4,15 @@ import ru.netology.domain.FilmTitle;
 
 public class PosterManager {
 
-    private int resultLength = 10;
+    private int maxFilmsLast = 10;
     private PosterRepository repo;
 
     public PosterManager(PosterRepository repo) {
         this.repo = repo;
     }
 
-    public PosterManager(int resultLength, PosterRepository repo) {
-        this.resultLength = resultLength;
+    public PosterManager(int maxFilmsLast, PosterRepository repo) {
+        this.maxFilmsLast = maxFilmsLast;
         this.repo = repo;
     }
 
@@ -27,7 +27,7 @@ public class PosterManager {
     }
 
     public FilmTitle[] findLast() {
-
+        int resultLength = maxFilmsLast;
         FilmTitle[] all = repo.findAll();
 
         if (all.length < resultLength) {
